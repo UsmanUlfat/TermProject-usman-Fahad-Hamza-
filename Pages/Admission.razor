@@ -1,0 +1,52 @@
+﻿
+<EditForm Model="@admission" OnValidSubmit="@HandleOnSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+
+    <label>
+        Enter Student Id :
+        <InputNumber @bind-Value="student.Id" />
+    </label>
+    <br>
+    <label>
+        Enter Student Name :
+        <InputText @bind-Value="student.Name" />
+    </label>
+    <br>
+    <label>
+        Enter Roll Number:
+        <InputText @bind-Value="student.RollNumber" />
+    </label>
+    <br>
+    <label>
+        Enter Student DOB :
+        <InputDate @bind-Value="student.DOB" />
+    </label>
+    <br>
+    <button type="submit">Submit</button>
+
+
+
+</EditForm>
+
+@code {
+    void HandleOnSubmit()
+    {
+
+        Admission admission = new Admission()
+
+        var res = await Http.PostAsJsonAsync("/api/v1/Student", student);
+        if (res.IsSuccessStatusCode)
+        {
+
+            message = res.ToString();
+            //nvm.NavigateTo("/Stdform");
+
+
+        }
+        StateHasChanged();
+
+    }
+
+}
